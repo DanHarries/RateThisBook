@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RateThisBook.Application;
+using RateThisBook.Application.Interfaces;
 using RateThisBook.Data;
 
 namespace RateThisBook.Web
@@ -33,6 +35,9 @@ namespace RateThisBook.Web
                     b => b.MigrationsAssembly("RateMyBook.Data")));
 
             services.AddControllersWithViews();
+
+
+            services.AddTransient<IBookRepository, BookRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

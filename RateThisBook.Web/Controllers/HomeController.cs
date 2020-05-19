@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RateThisBook.Application.Interfaces;
+using RateThisBook.Web.Helpers;
 using RateThisBook.Web.Models;
 
 namespace RateThisBook.Web.Controllers
@@ -12,15 +14,20 @@ namespace RateThisBook.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IBookRepository _books;
+        private readonly DataTransferHelper _helper = new DataTransferHelper();
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IBookRepository books)
         {
             _logger = logger;
+            _books = books;
         }
 
-        public IActionResult Index()
-        {
-            return View();
+        public async Task<IActionResult> Index()
+        {           
+            var model = _helper.DTOToModel(await _books.GetAllBooks());
+
+            return View(model);
         }
 
         public IActionResult Privacy()

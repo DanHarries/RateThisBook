@@ -1,8 +1,37 @@
-﻿@{
+﻿@model List<HomePageViewModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Rate My Book</h1>
-   
-</div>
+    <div class="text-center">
+        <h1 class="display-4">Rate My Book</h1>
+        <br /><br />
+
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th scope="col">Title</th>
+                          <th scope="col">Author</th>
+                          <th scope="col">Average Rating</th>
+                          <th scope="col"></th>
+                      </tr>
+                  </thead>
+
+                  @foreach (var book in Model)
+                  {
+              <tbody>
+                  <tr>
+                      <td>@book.BookTitle</td>
+                      <td>@book.BookAuthor</td>
+                      <td>Average Rating</td>
+                      <td><a asp-controller="Details" asp-action="Index" asp-route-id="@book.Id">Details></a></td>
+                  </tr>
+               
+              </tbody>
+                  }
+
+
+
+              </table>
+
+    </div>
